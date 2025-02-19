@@ -6,12 +6,6 @@ echo "Starting 99-custom.sh at $(date)" >> $LOGFILE
 # 设置默认防火墙规则，方便虚拟机首次访问 WebUI
 uci set firewall.@zone[1].input='ACCEPT'
 
-# 设置主机名映射，解决安卓原生 TV 无法联网的问题
-uci add dhcp domain
-uci set "dhcp.@domain[-1].name=time.android.com"
-uci set "dhcp.@domain[-1].ip=203.107.6.88"
-
-
 # 计算网卡数量
 count=0
 for iface in /sys/class/net/*; do
@@ -38,8 +32,8 @@ if [ "$count" -eq 1 ]; then
    uci set network.lan.proto='dhcp'
 elif [ "$count" -gt 1 ]; then
    # 多网口设备 支持修改为别的ip地址
-   uci set network.lan.ipaddr='192.168.100.1'
-   echo "set 192.168.100.1 at $(date)" >> $LOGFILE
+   uci set network.lan.ipaddr='192.168.10.11'
+   echo "set 192.168.10.11 at $(date)" >> $LOGFILE
    # 判断是否启用 PPPoE
    echo "print enable_pppoe value=== $enable_pppoe" >> $LOGFILE
    if [ "$enable_pppoe" = "yes" ]; then
@@ -65,7 +59,7 @@ uci commit
 
 # 设置编译作者信息
 FILE_PATH="/etc/openwrt_release"
-NEW_DESCRIPTION="Compiled by wukongdaily"
+NEW_DESCRIPTION="Compiled by ming"
 sed -i "s/DISTRIB_DESCRIPTION='[^']*'/DISTRIB_DESCRIPTION='$NEW_DESCRIPTION'/" "$FILE_PATH"
 
 exit 0
