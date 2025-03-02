@@ -16,8 +16,8 @@ else
 fi
 
 # 网络设置
-uci set network.lan.ipaddr='192.168.10.12'
-echo "set 192.168.10.12 at $(date)" >> $LOGFILE
+uci set network.lan.ipaddr='192.168.100.1'
+echo "set 192.168.100.1 at $(date)" >> $LOGFILE
 # 判断是否启用 PPPoE
 echo "print enable_pppoe value=== $enable_pppoe" >> $LOGFILE
 if [ "$enable_pppoe" = "yes" ]; then
